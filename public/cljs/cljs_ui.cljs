@@ -37,7 +37,8 @@
               [:tr (for [col (range @dimension)]
                      (let [val (aget @backing-grid row col)]
                        ^{:key (str "td-" col)}
-                       [:td.text-center [xo row col val]]))])]]])
+                       [:td.text-center
+                        [xo row col val]]))])]]])
 
 (defn home-page
   []
