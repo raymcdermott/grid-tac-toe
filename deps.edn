@@ -1,2 +1,7 @@
-{:deps {org.clojure/clojurescript {:mvn/version "1.11.60"}
-        reagent/reagent           {:mvn/version "1.1.1"}}}
+{:aliases
+ {:cursive {:extra-paths ["public/cljs" "repl"]
+            :extra-deps  {org.clojure/clojurescript {:mvn/version "1.11.60"}
+                          reagent/reagent           {:mvn/version "1.1.1"}}}
+  :serve   {:deps      {org.babashka/http-server {:mvn/version "0.1.11"}}
+            :main-opts ["-m" "babashka.http-server"]
+            :exec-fn   babashka.http-server/exec}}}

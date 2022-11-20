@@ -1,20 +1,17 @@
-# First
+# Serve
 
 ```bash
-npm install
-```
-
-# Second
-
-```bash
-npx nbb --classpath src -m server.web 
+clj -M:serve :port 1337 :dir public
 ```
 
 # nREPL
 
-TBD
+Too hard.
 
 # Auto Save / reload
 
-TBD
+Too hard.
 
+# Cursive
+
+Enable the `cursive` alias to ensure that the editor "sees" the dependencies
