@@ -88,10 +88,10 @@
   [:div
    (if @winner
      [:div.row.align-items-center
-      [:div.col [:p (str "Winner is " @winner)]]
+      [:div.col [:h2 (str "Winner is " (name @winner))]]
       [:div.col [game-reset-button]]]
      [:div.row.align-items-center
-      [:div.col [:p (str "Turns taken " @turn-count)]]])
+      [:div.col [:h3 (str "Turns taken " @turn-count)]]])
    [:table.table.table-bordered
     [:tbody (for [row (range @dimension)]
               ^{:key (str "tr-" row)}
