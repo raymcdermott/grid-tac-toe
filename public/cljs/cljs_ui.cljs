@@ -18,7 +18,7 @@
   (reset! turn-count 0))
 
 (def diagonal-coordinates
-  [(vec (map #(identity [%1 %2]) (range @dimension) (range @dimension)))
+  [(vec (map #(identity [% %]) (range @dimension)))
    (vec (map #(identity [%1 %2]) (range @dimension) (reverse (range @dimension))))])
 
 
@@ -66,16 +66,16 @@
 
 (defn xo
   [row col val]
-  [:div.d-grid.gap-2
-   (if val
-     [:h3 (if (= val :X)
-            [:i.fa-solid.fa-xmark]
-            [:i.fa-regular.fa-circle])]
-     [:button.btn.btn-outline-light
-      {:type     "button"
-       :on-click (fn []
-                   (play-until-win row col))}
-      [:h3 ""]])])
+  (cond
+    val (if (= val :X)
+          [:i.fa-solid.fa-xmark]
+          [:i.fa-regular.fa-circle])
+    :else [:div.d-grid
+           [:button.btn.btn-outline-light
+            {:type     "button"
+             :on-click (fn []
+                         (play-until-win row col))}
+            [:h1 ""]]]))
 
 (defn game-reset-button
   []
@@ -99,7 +99,7 @@
        [:div.col [:h2 (str "Winner is " (name @winner))]]
        [:div.col [game-reset-button]]]
       [:div.row.p-3
-       [:div.col [:h3 (str "Turns taken " @turn-count)]]])]
+       [:div.col [:h3 (str "Turn taken " @turn-count)]]])]
    [:div
     [:table.table.table-bordered
      [:tbody (for [row (range @dimension)]
