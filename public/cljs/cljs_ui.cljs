@@ -55,11 +55,11 @@
 
 (defn play-until-win
   [row col]
-  (let [g            @backing-grid
+  (let [g @backing-grid
         player-token (first @player)
-        _            (aset g row col player-token)
-        _            (reset! backing-grid g)
-        _            (swap! turn-count inc)]
+        _ (aset g row col player-token)
+        _ (reset! backing-grid g)
+        _ (swap! turn-count inc)]
     (if (check-win)
       (game-over player-token)
       (swap! player #(set/difference players %)))))
@@ -84,27 +84,37 @@
     :on-click #(game-reset)}
    "Game Reset"])
 
-(defn grid []
+[:div.container.px-4.text-center
+ [:div.row.gx-5
+  [:div.col
+   [:div.p-3.border.bg-light "Custom column padding"]]
+  [:div.col
+   [:div.p-3.border.bg-light "Custom column padding"]]]]
+
+(defn page []
   [:div
-   (if @winner
-     [:div.row.align-items-center
-      [:div.col [:h2 (str "Winner is " (name @winner))]]
-      [:div.col [game-reset-button]]]
-     [:div.row.align-items-center
-      [:div.col [:h3 (str "Turns taken " @turn-count)]]])
-   [:table.table.table-bordered
-    [:tbody (for [row (range @dimension)]
-              ^{:key (str "tr-" row)}
-              [:tr (for [col (range @dimension)]
-                     (let [val (aget @backing-grid row col)]
-                       ^{:key (str "td-" col)}
-                       [:td.text-center
-                        [xo row col val]]))])]]])
+   [:div.row.p-3
+    (if @winner
+      [:div.row.p-3
+       [:div.col [:h2 (str "Winner is " (name @winner))]]
+       [:div.col [game-reset-button]]]
+      [:div.row.p-3
+       [:div.col [:h3 (str "Turns taken " @turn-count)]]])]
+   [:div
+    [:table.table.table-bordered
+     [:tbody (for [row (range @dimension)]
+               ^{:key (str "tr-" row)}
+               [:tr (for [col (range @dimension)]
+                      (let [val (aget @backing-grid row col)]
+                        ^{:key (str "td-" col)}
+                        [:td.text-center
+                         [xo row col val]]))])]]]])
 
 (defn home-page
   []
   (game-reset)
-  [:div.container-fluid [grid]])
+  [:div.container-fluid.px-4
+   [page]])
 
 
 (rdom/render [home-page] (js/document.getElementById "app"))
