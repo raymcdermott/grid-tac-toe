@@ -75,7 +75,7 @@
             {:type     "button"
              :on-click (fn []
                          (play-until-win row col))}
-            [:h1 ""]]]))
+            "-"]]))
 
 (defn game-reset-button
   []
@@ -83,13 +83,6 @@
    {:type     "button"
     :on-click #(game-reset)}
    "Game Reset"])
-
-[:div.container.px-4.text-center
- [:div.row.gx-5
-  [:div.col
-   [:div.p-3.border.bg-light "Custom column padding"]]
-  [:div.col
-   [:div.p-3.border.bg-light "Custom column padding"]]]]
 
 (defn page []
   [:div
@@ -107,7 +100,7 @@
                [:tr (for [col (range @dimension)]
                       (let [val (aget @backing-grid row col)]
                         ^{:key (str "td-" col)}
-                        [:td.text-center
+                        [:td.h2.text-center
                          [xo row col val]]))])]]]])
 
 (defn home-page
